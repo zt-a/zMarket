@@ -1,9 +1,32 @@
+import stripe
+from django.conf import settings
+from django.views.generic.base import TemplateView
 from django.shortcuts import render
 from .forms import *
 from .models import *
 
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
-# Create your views here.
+class PaymentView(TemplateView):
+    template_name = 'payment.html'
+
+    def post(self, request, *args, **kwargs):
+        token = request.POST.get('stripeToken')
+        amount = 1000  # Замените на актуальную сумму
+
+        try:
+            charge = stripe.Charge.create(
+                amount=amount,
+                currency='usd',
+                source=token,
+                description='Оплата заказа'
+            )
+            # Здесь вы можете обрабатывать успешный платеж
+            return render(request, 'main/payment_success.html')
+
+        except stripe.error.CardError as e:
+            error_msg = e.user_message
+            return render(request, 'main/payment.html', {'error': error_msg})
 def index(request):
     return render(request, 'main/index.html')
 
@@ -21,10 +44,15 @@ def loginView(request):
 
 
 def shopView(request):
-    return render(request, 'main/shop.html')
+    products = Product.objects.all()
+    context = {
+        'products': products,
+    }
+    return render(request, 'main/shop.html', context=context)
 
 
 def aboutView(request):
+
     return render(request, 'main/about.html')
 
 
@@ -46,3 +74,10 @@ def searchView(request):
         'results': results,
     }
     return render(request, 'main/search.html', context=context)
+
+
+def postShopView(request):
+    return render(request, 'main/post_shop.html')
+
+def postCategoriesView(request):
+    return render(request, 'main/post_categories.html')
