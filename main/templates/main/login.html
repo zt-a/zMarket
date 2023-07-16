@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Войти{% endblock %}
+
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h1 class="text-center mb-4">Войти</h1>
+      <form method="POST" class="my-4">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="username" class="form-label">Имя пользователя</label>
+          <input type="text" name="username" class="form-control" id="username" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Пароль</label>
+          <input type="password" name="password" class="form-control" id="password" required>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">Войти</button>
+        </div>
+      </form>
+      <p class="text-center">Если у вас нет аккаунта, вы можете <a href="#">зарегистрироваться</a>.</p>
+    </div>
+  </div>
+{% endblock %}

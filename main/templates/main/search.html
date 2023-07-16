@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Результаты поиска{% endblock %}
+
+{% block content %}
+  <h1>Результаты поиска</h1>
+
+  <form method="GET" action="{% url 'search' %}">
+    <div class="form-errors">{{ form.non_field_errors }}</div>
+
+        {% for f in form %}
+        <p class="form-input-p"><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label> {{ f }} </p>
+        <div class="form-text text-muted">{{ f.errors }}</div>
+        <br>
+        {% endfor %}
+    <button type="submit" class="btn btn-primary">Искать</button>
+  </form>
+<br>
+  {% if results %}
+    <h2>Результаты:</h2>
+    <ul>
+      {% for product in results %}
+        <li>{{ product.name }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Ничего не найдено.</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Обратная связь{% endblock %}
+
+{% block content %}
+  <h1>Обратная связь</h1>
+  <p>Если у вас есть вопросы, комментарии или предложения, пожалуйста, заполните форму ниже, чтобы связаться с нами:</p>
+  <form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="name" class="form-label">Ваше имя</label>
+      <input type="text" name="name" class="form-control" id="name" required>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Ваш Email</label>
+      <input type="email" name="email" class="form-control" id="email" required>
+    </div>
+    <div class="mb-3">
+      <label for="message" class="form-label">Сообщение</label>
+      <textarea name="message" class="form-control" id="message" rows="5" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Отправить</button>
+  </form>
+{% endblock %}

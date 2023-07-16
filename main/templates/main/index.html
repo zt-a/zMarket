@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1 class="display-4">Добро пожаловать в zMarket!</h1>
+    <p class="lead">Лучший онлайн-магазин для ваших потребностей.</p>
+    <hr class="my-4">
+    <p>У нас вы найдете широкий ассортимент товаров по выгодным ценам.</p>
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="{% url 'shop' %}" role="button">Перейти к покупкам</a>
+    </p>
+  </div>
+{% endblock %}
