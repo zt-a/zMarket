@@ -51,3 +51,22 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
+
+
+class ContactUsModel(models.Model):
+    name = models.CharField(verbose_name='Ваше имя', max_length=255)
+    email = models.EmailField(verbose_name='Ваш Email', max_length=255)
+    message = models.TextField(verbose_name='Сообщение')
+
+
+    time_create = models.DateTimeField(verbose_name='Время создание', auto_now_add=True)
+    time_update = models.DateTimeField(verbose_name='Время обновление', auto_now=True)
+    is_published = models.BooleanField(verbose_name='Публикация', default=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Обратная связь'
+        verbose_name_plural = 'Обратные связи'
+        ordering = ['-time_create', 'id']

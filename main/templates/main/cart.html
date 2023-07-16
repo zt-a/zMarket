@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+<h1>Корзина</h1>
+
+{% block content %}
+{% if cart %}
+  <ul>
+    {% for product_id, quantity in cart.items %}
+      <li>{{ product_id }} (Количество: {{ quantity }})</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>Корзина пуста.</p>
+{% endif %}
+
+<!-- Форма для добавления/удаления товаров или обновления количества -->
+<form method="POST" action="{% url 'cart' %}">
+  {% csrf_token %}
+  <input type="hidden" name="product_id" value="{{ product_id }}">
+  <input type="hidden" name="remove_product_id" value="{{ product_id }}">
+  <input type="hidden" name="update_product_id" value="{{ product_id }}">
+  <input type="number" name="quantity" value="1">
+  <button type="submit">Добавить в корзину</button>
+  <button type="submit">Удалить из корзины</button>
+  <button type="submit">Обновить количество</button>
+</form>
+
+{% endblock %}

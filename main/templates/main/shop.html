@@ -7,12 +7,19 @@
     <ul class="col-md-4 products">
       {% for product in products %}
       <li class="card mb-4 product">
+        {% if product.image %}
         <img src="{{ product.image.url }}" class="card-img-top" alt="Product Image">
+        {% endif %}
         <div class="card-body">
           <h5 class="card-title">{{ product.name }}</h5>
           <p class="card-text">{{ product.description }}</p>
           <p class="card-text">Цена: {{ product.price }}</p>
-          <a href="#" class="btn btn-primary">Добавить в корзину</a>
+          <form method="POST" action="{% url 'cart' %}">
+            {% csrf_token %}
+            <input type="hidden" name="product_id" value="{{ product.id }}">
+            <input type="number" name="quantity" value="1" min="1">
+            <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+          </form>
         </div>
       </li>
       {% endfor %}

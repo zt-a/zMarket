@@ -22,7 +22,9 @@
     <ul class="col-md-4 products">
       {% for product in results %}
       <li class="card mb-4 product">
+        {% if product.image %}
         <img src="{{ product.image.url }}" class="card-img-top" alt="Product Image">
+        {% endif %}
         <div class="card-body">
           <h5 class="card-title">{{ product.name }}</h5>
           <p class="card-text">{{ product.description }}</p>
